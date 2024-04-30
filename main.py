@@ -12,6 +12,8 @@ def main():
     for q in questions:
         print(q)
 
+    print('------')
+
 
 def read_vocab_file(show_kanji: bool) -> list:
     with open('N5_vocab.txt', 'r', encoding='utf-8') as file:
