@@ -1,10 +1,19 @@
 import random
 import string
+import argparse
 
 
 def main():
-    v_sets = generate_vocab_sets(n=5)
-    q_sets = generate_question_sets(vocab_sets=v_sets, mode=0)
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument('-n', '--number', type=int, help='Number of questions to generate (1-27)', default=5)
+    parser.add_argument('-m', '--mode', type=int, help='[0] Kana -> English | [1] English -> Kana', default=0)
+    parser.add_argument('-k', '--kanji', help='Shows Kanji', action='store_true')
+
+    args = parser.parse_args()
+
+    v_sets = generate_vocab_sets(n=args.number, kanji=args.kanji)
+    q_sets = generate_question_sets(vocab_sets=v_sets, mode=args.mode)
     title = q_sets[0]
     questions = q_sets[1]
 
@@ -26,18 +35,18 @@ def read_vocab_file(show_kanji: bool) -> list:
     return data
 
 
-def generate_vocab_sets(n: int) -> list:
+def generate_vocab_sets(n: int, kanji: bool) -> list:
     if n <= 0:
         raise ValueError("'n' value must be positive")
 
-    available_sets = read_vocab_file(show_kanji=False)
+    available_sets = read_vocab_file(show_kanji=kanji)
     return random.choices(available_sets, k=n)
 
 
 def generate_question_sets(vocab_sets: list, mode: int = 1 or 2) -> tuple:
     """
-    :param mode: [0] Hiragana -> English | [1] English -> Hiragana
-    :param vocab_sets: [(Kanji, Hiragana, English), (...)]
+    :param mode: [0] Kana -> English | [1] English -> Kana
+    :param vocab_sets: [(Kanji, Kana, English), (...)]
     """
     if len(vocab_sets) > 26:
         raise ValueError('You can use max of 26 vocabulary sets at once')
