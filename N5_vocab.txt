@@ -1,4 +1,4 @@
-Kanji	Hiragana	English
+Kanji	Kana	English
 会う	あう	to meet
 青	あお	blue
 青い	あおい	blue
