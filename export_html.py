@@ -1,5 +1,6 @@
 import random
 from string import ascii_letters
+import os
 
 
 class Export:
@@ -9,6 +10,10 @@ class Export:
 
     def create_html(self):
         unique_id = random.choices(ascii_letters, k=random.randint(4, 7))
+        try:
+            os.mkdir('exports')
+        except FileExistsError:
+            pass
         with open(fr'exports/htmlexport_{"".join(unique_id)}.html', 'w', encoding='utf-8') as html:
             html.write(f'<h1>{self.header}</h1>\n')
             html.write('<br>\n')
