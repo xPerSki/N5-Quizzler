@@ -51,7 +51,7 @@ def generate_vocab_sets(n: int, omit_empty: bool) -> list:
         raise ValueError(f"Max value of 'n' is 100")
 
     available_sets = read_vocab_file(omit_empty)
-    return random.choices(available_sets, k=n)
+    return random.sample(available_sets, k=n)
 
 
 def generate_question_sets(vocab_sets: list, mode: int = 0) -> tuple:

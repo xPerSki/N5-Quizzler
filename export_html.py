@@ -7,15 +7,30 @@ class Export:
     def __init__(self, header: str, questions: list):
         self.header = header
         self.questions = questions
+        self.html_path = fr'exports/html'
 
     def create_html(self):
-        unique_id = random.choices(ascii_letters, k=random.randint(4, 7))
+        unique_id: str = random.choices(ascii_letters, k=random.randint(4, 7))
         try:
-            os.mkdir('exports')
+            os.makedirs(self.html_path)
         except FileExistsError:
             pass
-        with open(fr'exports/htmlexport_{"".join(unique_id)}.html', 'w', encoding='utf-8') as html:
-            html.write(f'<h1>{self.header}</h1>\n')
-            html.write('<br>\n')
+
+        self.create_css()
+        with open(fr'{self.html_path}/htmlexport_{"".join(unique_id)}.html', 'w', encoding='utf-8') as html:
+            lines = [
+                '<link rel="stylesheet" href="styles.css">\n',
+                f'<h1>{self.header}</h1>\n'
+            ]
+            html.writelines(lines)
             for q in self.questions:
                 html.write(f'<p>{q} = </p>\n')
+
+    def create_css(self):
+        with open(fr'{self.html_path}/styles.css', 'w') as css:
+            lines: list = [
+                '* {background-color: black; color: white;}\n',
+                'h1 {font-size: 60px; text-align: center;}\n',
+                'p {padding-top: 50px; font-size: 20px;}\n'
+            ]
+            css.writelines(lines)
