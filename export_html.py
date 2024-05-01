@@ -8,16 +8,17 @@ class Export:
         self.header = header
         self.questions = questions
         self.html_path = fr'exports/html'
+        self.unique_id = random.choices(ascii_letters, k=random.randint(4, 7))
+        self.filename = "".join(self.unique_id)
 
     def create_html(self):
-        unique_id: str = random.choices(ascii_letters, k=random.randint(4, 7))
         try:
             os.makedirs(self.html_path)
         except FileExistsError:
             pass
 
         self.create_css()
-        with open(fr'{self.html_path}/htmlexport_{"".join(unique_id)}.html', 'w', encoding='utf-8') as html:
+        with open(fr'{self.html_path}/htmlexport_{self.filename}.html', 'w', encoding='utf-8') as html:
             lines = [
                 '<link rel="stylesheet" href="styles.css">\n',
                 f'<h1>{self.header}</h1>\n'
