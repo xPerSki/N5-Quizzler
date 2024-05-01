@@ -1,7 +1,7 @@
 import random
 import argparse
 
-
+# TODO: Export results into html file and save it to the folder /results/export01.html
 max_vocab: int
 
 
@@ -59,13 +59,13 @@ def generate_question_sets(vocab_sets: list, mode: int = 0) -> tuple:
 
     match mode:
         case 0:
-            params = ('Kana -> English\nTranslate to English', 1)
+            params = ('Kana -> English\nTranslate to English\n', 1)
         case 1:
-            params = ('English -> Kana\nWrite in Kana', 2)
+            params = ('English -> Kana\nWrite in Kana\n', 2)
         case 2:
-            params = ('Kanji -> Kana\nWrite in Kana', 0)
+            params = ('Kanji -> Kana\nWrite in Kana\n', 0)
         case 3:
-            params = ('Kanji -> English\nTranslate to English', 0)
+            params = ('Kanji -> English\nTranslate to English\n', 0)
 
     for index, vocab_set in enumerate(vocab_sets):
         question: str = f'{index + 1}) {vocab_set[params[1]]}'
