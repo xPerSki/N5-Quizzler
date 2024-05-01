@@ -1,7 +1,7 @@
 import random
 import argparse
 
-# TODO: Export results into html file and save it to the folder /results/export01.html
+
 max_vocab: int
 
 
