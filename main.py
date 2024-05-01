@@ -49,7 +49,7 @@ def generate_vocab_sets(n: int, omit_empty: bool) -> list:
 
 
 def generate_question_sets(vocab_sets: list, mode: int = 0) -> tuple:
-    # Check if the provided mode is valid, otherwise use the default (0)
+    # Check if the provided mode is valid
     valid_modes: tuple = (0, 1, 2, 3)
     if mode not in valid_modes:
         raise ValueError(f'No such mode as [{mode}]')
