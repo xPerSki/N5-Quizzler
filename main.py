@@ -1,5 +1,6 @@
 import random
 import argparse
+import export_html
 
 
 max_vocab: int
@@ -10,6 +11,7 @@ def main():
 
     parser.add_argument('-n', '--number', type=int, help=f'Number of questions to generate (1-100)', default=5)
     parser.add_argument('-m', '--mode', type=int, help='[0] Kana -> English | [1] English -> Kana | [2] Kanji -> Kana | [3] Kanji -> English', default=0)
+    parser.add_argument('-e', '--export', help='Export result in html file', action='store_true')
 
     args = parser.parse_args()
 
@@ -18,9 +20,13 @@ def main():
     title = q_sets[0]
     questions = q_sets[1]
 
-    print(title)
-    for q in questions:
-        print(q)
+    if args.export:
+        html_data = export_html.Export(title.split('\n')[1], questions)
+        html_data.create_html()
+    else:
+        print(title)
+        for q in questions:
+            print(q)
 
 
 def read_vocab_file(omit_empty: bool = False) -> list:
