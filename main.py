@@ -17,6 +17,8 @@ def main():
                         help='Export result in html file', action='store_true')
     parser.add_argument('-oh', '--only-hiragana',
                         help='Generate only hiragana words', action='store_true')
+    parser.add_argument('-d', '--dark',
+                        help='Black background with white text', action='store_true')
 
     args = parser.parse_args()
 
@@ -27,7 +29,7 @@ def main():
     questions = q_sets[1]
 
     if args.export:
-        html_data = export_html.Export(title.split('\n')[1], questions)
+        html_data = export_html.Export(header=title.split('\n')[1], questions=questions, dark_mode=args.dark)
         html_data.create_html()
     else:
         print(title)
