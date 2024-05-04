@@ -9,13 +9,19 @@ max_vocab: int
 def main():
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('-n', '--number', type=int, help=f'Number of questions to generate (1-100)', default=5)
-    parser.add_argument('-m', '--mode', type=int, help='[0] Kana -> English | [1] English -> Kana | [2] Kanji -> Kana | [3] Kanji -> English', default=0)
-    parser.add_argument('-e', '--export', help='Export result in html file', action='store_true')
+    parser.add_argument('-n', '--number', type=int,
+                        help=f'Number of questions to generate (1-100)', default=5)
+    parser.add_argument('-m', '--mode', type=int, default=0,
+                        help='[0] Kana -> English | [1] English -> Kana | [2] Kanji -> Kana | [3] Kanji -> English')
+    parser.add_argument('-e', '--export',
+                        help='Export result in html file', action='store_true')
+    parser.add_argument('-oh', '--only-hiragana',
+                        help='Generate only hiragana words', action='store_true')
 
     args = parser.parse_args()
 
-    v_sets = generate_vocab_sets(n=args.number, omit_empty=True if args.mode in [2, 3] else False)
+    v_sets = generate_vocab_sets(n=args.number, omit_empty=True if args.mode in [2, 3] else False,
+                                 only_hiragana=args.only_hiragana)
     q_sets = generate_question_sets(vocab_sets=v_sets, mode=args.mode)
     title = q_sets[0]
     questions = q_sets[1]
@@ -29,7 +35,7 @@ def main():
             print(q)
 
 
-def read_vocab_file(omit_empty: bool = False) -> list:
+def read_vocab_file(omit_empty: bool = False, only_hiragana: bool = False) -> list:
     with open('N5_vocab.txt', 'r', encoding='utf-8') as file:
         next(file)  # We omit the header line
         data: list = []
@@ -39,18 +45,22 @@ def read_vocab_file(omit_empty: bool = False) -> list:
                 if split_vocab[0] == '':
                     continue
 
+            if only_hiragana:
+                if not check_only_hiragana(split_vocab[1]):
+                    continue
+
             data.append((split_vocab[0], split_vocab[1], split_vocab[2]))
 
     return data
 
 
-def generate_vocab_sets(n: int, omit_empty: bool) -> list:
+def generate_vocab_sets(n: int, omit_empty: bool, only_hiragana: bool) -> list:
     if n <= 0:
         raise ValueError("'n' value must be positive")
     elif n > 100:
         raise ValueError(f"Max value of 'n' is 100")
 
-    available_sets = read_vocab_file(omit_empty)
+    available_sets = read_vocab_file(omit_empty, only_hiragana)
     return random.sample(available_sets, k=n)
 
 
@@ -78,6 +88,15 @@ def generate_question_sets(vocab_sets: list, mode: int = 0) -> tuple:
         question_sets.append(question)
 
     return params[0], question_sets
+
+
+def check_only_hiragana(word) -> bool:
+    katakana_chars = ('アァカサタナハマヤャラワガザダバパピビヂジギヰリミヒニチシキィイウゥクスツヌフムユ'
+                      'ュルグズヅブプペベデゼゲヱレメヘネテセケェエオォコソトノホモヨョロヲゴゾドボポヴッン')
+    for ltr in word:
+        if ltr in katakana_chars:
+            return False
+    return True
 
 
 if __name__ == '__main__':
