@@ -3,8 +3,8 @@ Mandatory app to pass the JLPT N5
 
 ## CLI Basic Example
 ```bash
-python main.py -n 5 -m 0
-python main.py --number 25 --mode 3
+python main.py -n 5 -m 0 -oh
+python main.py --number 25 --mode 3 --only-hiragana
 ```
 
 ### CLI Export
