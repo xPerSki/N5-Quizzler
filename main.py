@@ -29,12 +29,17 @@ def main():
     questions = q_sets[1]
 
     if args.export:
-        html_data = export_html.Export(header=title.split('\n')[1], questions=questions, dark_mode=args.dark)
-        html_data.create_html()
+        create_html_questions(header=title.split('\n')[1], questions=questions, dark_mode=args.dark)
+        create_html_answers()
     else:
-        print(title)
-        for q in questions:
-            print(q)
+        cli_display_questions(title, questions)
+        input('\nPress ENTER to show the answers')
+        for i in range(len(questions)):
+            questions[i] = questions[i][3:]
+        answers: dict = cli_display_answers(questions, mode=args.mode)
+
+        for i, (k, v) in enumerate(answers.items()):
+            print(f'{i+1}) {k}  ->  {v[:-2]}')
 
 
 def read_vocab_file(omit_empty: bool = False, only_hiragana: bool = False) -> list:
@@ -99,6 +104,56 @@ def check_only_hiragana(word) -> bool:
         if ltr in katakana_chars:
             return False
     return True
+
+
+def create_html_questions(header: str, questions: list, dark_mode: bool = False) -> None:
+    html_data = export_html.Export(header, questions, dark_mode)
+    html_data.create_html()
+
+
+def create_html_answers() -> None:
+    pass
+
+
+def cli_display_questions(title, questions: list) -> None:
+    print(title)
+    for q in questions:
+        print(q)
+
+
+def cli_display_answers(questions: list, mode: int) -> dict:
+    data: list = read_vocab_file()
+    sliced_data: list = []
+    search_idx: int = -1
+    answer_idx: int = -1
+    answers: dict = {}
+    for q in questions:
+        answers[q] = ''
+        for data_answer in data:
+            if q in data_answer:
+                sliced_data.append(data_answer)
+    del data, data_answer
+
+    # (0, 1, 2) -> (Kanji, Kana, English)
+    if mode == 0:
+        search_idx = 1  # We search for Kana
+        answer_idx = 2  # We search for English Translation
+    elif mode == 1:
+        search_idx = 2
+        answer_idx = 1
+    elif mode == 2:
+        search_idx = 0
+        answer_idx = 1
+    elif mode == 3:
+        search_idx = 0
+        answer_idx = 2
+
+    for question in questions:
+        for data_answer in sliced_data:
+            if question == data_answer[search_idx]:
+                answers[question] += data_answer[answer_idx] + ', '
+
+    return answers
 
 
 if __name__ == '__main__':
