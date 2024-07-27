@@ -22,7 +22,7 @@ To display the options use `python main.py -h` or `python main.py --help`
 Results are saved in unique `htmlexport_[file_id].html` files  
 To see the answers, find your document id and its `htmlexport_[file_id]_AnswerKey.html`
 
-## Example
+# Example
 ```bash
 python main.py -n 5 -m 0 -oh
 ```
@@ -30,7 +30,7 @@ python main.py -n 5 -m 0 -oh
 python main.py --number 5 --mode 0 --only-hiragana
 ```
 
-### Export
+## Export
 ```bash
 python main.py -n 10 -m 1 -e
 ```
