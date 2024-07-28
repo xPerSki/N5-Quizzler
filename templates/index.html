@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %} N5 Quizzler {% endblock %}
+{% block content %}
+<header class="hero">
+    <div class="hero-content">
+        <h1 class="silkscreen-bold">N5 Quizzler</h1>
+        <a href="#start" class="bi bi-arrow-down-short inv-btn"></a>
+    </div>
+</header>
+<main>
+    <div id="start" class="text-center">
+        <h1 class="silkscreen-regular">
+            Completely
+            <span style="color: #06D6A0;">free</span>
+            tool for learning
+            <span style="color: #EF065B;">Japanese</span>
+        </h1>
+        <hr>
+        <p class="silkscreen-regular" style="font-size: 1.5em;">Learn new words with flashcards, quizzes, and games!</p>
+    </div>
+
+    <div class="text-center pt-5">
+        <a href="{{ url_for('hub') }}">
+            <button class="button-85 silkscreen-regular" role="button">Start Learning</button>
+        </a>
+    </div>
+
+    <section class="content" id="main">
+        <div class="container py-5">
+            <div class="row mb-4">
+                <div class="col-md-6 mb-4">
+                    <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg"
+                         style="background-image: url('/static/img/ghibli.jpg');">
+                        <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                            <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold fin">Flashcards</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 d-flex align-items-center">
+                    <p class="text-center fin" style="font-size: 1.7em;">Efficiently learn new words at your own pace and save the difficult ones for later.</p>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-md-6 order-md-2 mb-4">
+                    <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg"
+                         style="background-image: url('/static/img/konosuba.jpg');">
+                        <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                            <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold fin">Quizzes</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 d-flex align-items-center order-md-1">
+                    <p class="text-center fin" style="font-size: 1.7em;">Generate quizzes, download them, and review wherever you like. For every single quiz, you will get an answer key to check yourself.</p>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-md-6 mb-4">
+                    <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg"
+                         style="background-image: url('/static/img/figure.jpg');">
+                        <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                            <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold fin">Games</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 d-flex align-items-center">
+                    <p class="text-center fin" style="font-size: 1.7em;">In practice mode, you can try building words from letters and matching them with their meaning.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

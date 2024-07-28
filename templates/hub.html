@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %} N5 Quizzler {% endblock %}
+{% block content %}
+<header>
+    <h1 class="silkscreen-bold text-center n5">N5 Quizzler</h1>
+</header>
+<main>
+    <h1 class="serif-jp text-center">こんにちわ！</h1>
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-4 text-center mb-4">
+                <a href="#" class="game-button" id="flashcards-button">
+                    <img src="/static/img/japanese-lantern.jpg" alt="Flashcards">
+                    <div class="button-overlay">暗記カード</div>
+                </a>
+                <p class="serif-jp text-center" style="margin-top: 15px;">Flashcards</p>
+            </div>
+            <div class="col-md-4 text-center mb-4">
+                <a href="#" class="game-button" id="quizzes-button">
+                    <img src="/static/img/senbon-torii.jpg" alt="Quizzes">
+                    <div class="button-overlay">クイズ</div>
+                </a>
+                <p class="serif-jp text-center" style="margin-top: 15px;">Quiz</p>
+            </div>
+            <div class="col-md-4 text-center mb-4">
+                <a href="#" class="game-button" id="practice-button">
+                    <img src="/static/img/lanterns.jpg" alt="Practice">
+                    <div class="button-overlay">練習</div>
+                </a>
+                <p class="serif-jp text-center" style="margin-top: 15px;">Practice</p>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
