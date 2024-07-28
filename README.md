@@ -3,8 +3,8 @@ With the use of Python you can create word sets that will help you learn the lan
 You can select hiragana/katakana/kanji words or their English equivalent and then translate them.
 
 # How to run
-Use Python/CLI to run the script: `python main.py`  
-To display the options use `python main.py -h` or `python main.py --help`
+Use Python/CLI to run the script: `python N5_CLI.py`  
+To display the options use `python N5_CLI.py -h` or `python N5_CLI.py --help`
 
 # Options
 - -n, --number &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;Number of questions to generate (1-100)
@@ -24,18 +24,18 @@ To see the answers, find your document id and its `htmlexport_[file_id]_AnswerKe
 
 # Example
 ```bash
-python main.py -n 5 -m 0 -oh
+python N5_CLI.py -n 5 -m 0 -oh
 ```
 ```bash
-python main.py --number 5 --mode 0 --only-hiragana
+python N5_CLI.py --number 5 --mode 0 --only-hiragana
 ```
 
 ## Export
 ```bash
-python main.py -n 10 -m 1 -e
+python N5_CLI.py -n 10 -m 1 -e
 ```
 ```bash
-python main.py -n 10 --mode 1 --export
+python N5_CLI.py -n 10 --mode 1 --export
 ```
 
 # Troubleshooting
@@ -48,4 +48,4 @@ python main.py -n 10 --mode 1 --export
 ![](https://github.com/user-attachments/assets/27de21c0-5e8f-4ebd-94e4-22864308c458)
 
 Now it should be fixed:  
-![fixed](https://github.com/user-attachments/assets/e6d2639b-5f4d-460d-acea-33af4079da76)
+![](https://github.com/user-attachments/assets/e6d2639b-5f4d-460d-acea-33af4079da76)
