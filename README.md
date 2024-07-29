@@ -11,6 +11,7 @@ Open server `127.0.0.1:5000`
 To close the server, simply stop `app.py`
 
 ## Features
+![](https://github.com/user-attachments/assets/df3bbd7f-c1d8-434e-a843-fbcbe3c52fc7)
 
 ### Flashcards
 ![](https://github.com/user-attachments/assets/479d81ac-a357-4c61-b95b-7f19ec788f4e)
