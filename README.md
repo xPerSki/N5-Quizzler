@@ -1,4 +1,4 @@
-# N5-Quizzler
+# N5-Quizzler (v2) STILL IN PROGRESS
 With the use of Python you can create word sets that will help you learn the language.  
 You can select hiragana/katakana/kanji words or their English equivalent and then translate them.
 
