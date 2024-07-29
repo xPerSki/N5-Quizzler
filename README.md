@@ -4,31 +4,31 @@
 With the use of N5 Quizzler you can learn the language in the fun and simple way  
 Learn with flashcards, quizzes and practice with automated exercises!
 
-# How to run
-## V2
+# V2
+## How to run
 Launch server by running `app.py`  
 Open server `127.0.0.1:5000`  
 To close the server, simply stop `app.py`
 
 ## Features
-![](https://github.com/user-attachments/assets/df3bbd7f-c1d8-434e-a843-fbcbe3c52fc7)
+![](https://github.com/user-attachments/assets/df3bbd7f-c1d8-434e-a843-fbcbe3c52fc7)  
 
 ### Flashcards
-![](https://github.com/user-attachments/assets/479d81ac-a357-4c61-b95b-7f19ec788f4e)
+![](https://github.com/user-attachments/assets/479d81ac-a357-4c61-b95b-7f19ec788f4e)  
 
 Card will reveal the translation after you click it  
 If the word can be written with Kanji, it will be displayed below
 ---
 
 ### Quizzes / Short Tests
-![](https://github.com/user-attachments/assets/aafdac52-972e-467b-81fb-dbe000aca8de)
+![](https://github.com/user-attachments/assets/aafdac52-972e-467b-81fb-dbe000aca8de)  
 
 Quiz will be generated based on your selected options  
 After clicking `Create` it will save your quiz (& the answer key) in the `exports/html` folder
 ---
 
 ### Practice
-![](https://github.com/user-attachments/assets/2a875f94-8dc3-443a-8973-91e271d4d932)
+![](https://github.com/user-attachments/assets/2a875f94-8dc3-443a-8973-91e271d4d932)  
 
 Translate the word and automatically get feedback if you were correct  
 *(Recommended) Install Japanese keyboard on your PC*  
