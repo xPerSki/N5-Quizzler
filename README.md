@@ -1,40 +1,42 @@
 # N5-Quizzler
-![](https://github.com/user-attachments/assets/ba377e46-20e6-4ba5-9c9a-c5411e2fb213)
+![N5-Quizzler](https://github.com/user-attachments/assets/ba377e46-20e6-4ba5-9c9a-c5411e2fb213)
 
-With the use of N5 Quizzler you can learn the language in the fun and simple way  
-Learn with flashcards, quizzes and practice with automated exercises!
+With the use of N5 Quizzler, you can learn the language in a fun and simple way  
+Learn with flashcards, quizzes, and practice with automated exercises!
 
-# V2
-## How to run
-Launch server by running `app.py`  
-Open server `127.0.0.1:5000`  
-To close the server, simply stop `app.py`
+## V2
+
+### How to Run
+- Launch server by running `app.py`
+- Open server at `127.0.0.1:5000`
+- To close the server, simply stop `app.py`
 
 ## Features
-![](https://github.com/user-attachments/assets/df3bbd7f-c1d8-434e-a843-fbcbe3c52fc7)  
+![Features](https://github.com/user-attachments/assets/df3bbd7f-c1d8-434e-a843-fbcbe3c52fc7)
 
 ---
 
 ### Flashcards
-![](https://github.com/user-attachments/assets/479d81ac-a357-4c61-b95b-7f19ec788f4e)  
+![Flashcards](https://github.com/user-attachments/assets/479d81ac-a357-4c61-b95b-7f19ec788f4e)
 
-Card will reveal the translation after you click it  
-If the word can be written with Kanji, it will be displayed below
+- Card will reveal the translation after you click it
+- If the word can be written with Kanji, it will be displayed below
+
 ---
 
 ### Quizzes / Short Tests
-![](https://github.com/user-attachments/assets/aafdac52-972e-467b-81fb-dbe000aca8de)  
+![Quizzes](https://github.com/user-attachments/assets/aafdac52-972e-467b-81fb-dbe000aca8de)
 
-Quiz will be generated based on your selected options  
-After clicking `Create` it will save your quiz (& the answer key) in the `exports/html` folder
+- Quiz will be generated based on your selected options
+- After clicking `Create`, it will save your quiz (& the answer key) in the `exports/html` folder
+
 ---
 
 ### Practice
-![](https://github.com/user-attachments/assets/2a875f94-8dc3-443a-8973-91e271d4d932)  
+![Practice](https://github.com/user-attachments/assets/2a875f94-8dc3-443a-8973-91e271d4d932)
 
-Translate the word and automatically get feedback if you were correct  
-*(Recommended) Install Japanese keyboard on your PC*  
-*- as of version `v2.0.0` there isn't any other option to type in Japanese*
+- Translate the word and automatically get feedback if you were correct
+- *(Recommended)* Install a Japanese keyboard on your PC, as of version `v2.0.0` there isn't any other option to type in Japanese
 
 ---
 
