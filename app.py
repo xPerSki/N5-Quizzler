@@ -6,6 +6,7 @@ from sqlalchemy import Integer, Float, String
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap5
 from flask_wtf import FlaskForm
+from flask_wtf.csrf import CSRFProtect
 import hook
 import random
 
@@ -24,6 +25,8 @@ app.secret_key = "xxxxxxxxxx"
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///N5_vocab.db"
 db = SQLAlchemy(model_class=Base)
 db.init_app(app)
+csrf = CSRFProtect(app)
+csrf.init_app(app)
 bootstrap = Bootstrap5(app)
 
 
@@ -61,6 +64,23 @@ def flashcards(mode):
         data = hook.read_vocab_file()
 
     return render_template('flashcards.html', data=data)
+
+
+# @app.route("/flashcards/save", methods=["POST"])
+# def save():
+#     data = request.get_json()
+#     if data:
+#         front_middle = data.get('front-middle')
+#         front_bottom = data.get('front-bottom')
+#         back_middle = data.get('back-middle')
+#
+#         query = db.select(Word).where(Word.kanji == front_bottom and Word.kana == front_middle and Word.english == back_middle)
+#         result = db.session.execute(query)
+#         result.scalar().saved = 'Y'
+#         db.session.commit()
+#
+#         return jsonify(success=True), 200
+#     return jsonify(success=False), 400
 
 
 @app.route("/get_random_question/<string:mode>")
