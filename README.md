@@ -1,6 +1,7 @@
 # N5-Quizzler
-With the use of N5 Quizzler you can create word sets that will help you learn the language.  
-You can select hiragana/katakana/kanji or their English equivalent and then translate them.  
+![](..%2F..%2FPictures%2FN5%2Fhome.png)
+
+With the use of N5 Quizzler you can learn the language in the fun and simple way  
 Learn with flashcards, quizzes and practice with automated exercises!
 
 # How to run
@@ -8,6 +9,28 @@ Learn with flashcards, quizzes and practice with automated exercises!
 Launch server by running `app.py`  
 Open server `127.0.0.1:5000`  
 To close the server, simply stop `app.py`
+
+## Features
+
+### Flashcards
+![](..%2F..%2FPictures%2FN5%2Fflashcards-front.png)
+Card will reveal the translation after you click it  
+If the word can be written with Kanji, it will be displayed below
+---
+
+### Quizzes / Short Tests
+![](..%2F..%2FPictures%2FN5%2Fquiz-gen.png)
+Quiz will be generated based on your selected options  
+After clicking `Create` it will save your quiz (& the answer key) in the `exports/html` folder
+---
+
+### Practice
+![](..%2F..%2FPictures%2FN5%2Fpractice-translate.png)
+Translate the word and automatically get feedback if you were correct  
+*(Recommended) Install Japanese keyboard on your PC*  
+*- as of version `v2.0.0` there isn't any other option to type in Japanese*
+
+---
 
 ## V1
 Use Python/CLI to run the script: `python N5_CLI.py`  
