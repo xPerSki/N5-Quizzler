@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %} N5 Quizzler {% endblock %}
+{% block content %}
+<header>
+    <h1 class="silkscreen-bold text-center n5">N5 Quizzler</h1>
+</header>
+<main>
+    {% if fs == "setup" %}
+    <div class="container py-5" style="margin-top: 56px;">
+        <div class="row justify-content-center">
+            <div class="col-md-4 text-center mb-4">
+                <a href="{{ url_for('flashcards', mode='hiragana') }}" class="game-button" id="flashcards-button">
+                    <img src="/static/img/hiragana.jpg" alt="Flashcards">
+                    <div class="button-overlay">Only Hiragana</div>
+                </a>
+            </div>
+            <div class="col-md-4 text-center mb-4">
+                <a href="{{ url_for('flashcards', mode='katakana') }}" class="game-button" id="quizzes-button">
+                    <img src="/static/img/katakana.jpg" alt="Quizzes">
+                    <div class="button-overlay">With Katakana</div>
+                </a>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    {% set question = data|random %}
+    <div class="container my-5">
+        <div class="d-flex justify-content-center">
+            <div class="flashcard" id="flashcard">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front d-flex flex-column align-items-center justify-content-center">
+                        <div class="flashcard-middle serif-jp" id="front-middle">{{ question[1] }}</div>
+                        <div class="flashcard-bottom serif-jp" id="front-bottom">{{ question[0] }}</div>
+                    </div>
+                    <div class="flashcard-back d-flex align-items-center justify-content-center">
+                        <div class="flashcard-middle serif-jp" id="back-middle">{{ question[2] }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container my-5">
+        <div class="row text-center">
+            <div class="col justify-content-center">
+                <a href="{{ url_for('hub') }}"><button class="btn custom-btn">Go Back</button></a>
+                <button class="btn custom-btn" id="refresh-btn">Next</button>
+            </div>
+        </div>
+    </div>
+    <script src="/static/js/script.js"></script>
+    {% endif %}
+</main>
+{% endblock %}
