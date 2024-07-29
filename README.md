@@ -1,12 +1,19 @@
-# N5-Quizzler (v2) STILL IN PROGRESS
-With the use of Python you can create word sets that will help you learn the language.  
-You can select hiragana/katakana/kanji words or their English equivalent and then translate them.
+# N5-Quizzler
+With the use of N5 Quizzler you can create word sets that will help you learn the language.  
+You can select hiragana/katakana/kanji or their English equivalent and then translate them.  
+Learn with flashcards, quizzes and practice with automated exercises!
 
 # How to run
+## V2
+Launch server by running `app.py`  
+Open server `127.0.0.1:5000`  
+To close the server, simply stop `app.py`
+
+## V1
 Use Python/CLI to run the script: `python N5_CLI.py`  
 To display the options use `python N5_CLI.py -h` or `python N5_CLI.py --help`
 
-# Options
+### Options
 - -n, --number &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Number of questions to generate (1-100)
 - -m, --mode &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Set generation mode (0-3)
   - 0 - Kana -> English &nbsp;
@@ -17,12 +24,7 @@ To display the options use `python N5_CLI.py -h` or `python N5_CLI.py --help`
 - -oh, --only-hiragana &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Generate only hiragana words
 - -d, --dark &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Result is customized with black background and white text (dark-mode)
 
-# Save Location
-`[./N5-Quizzler]/exports/html`  
-Results are saved in unique `htmlexport_[file_id].html` files  
-To see the answers, find your document id and its `htmlexport_[file_id]_AnswerKey.html`
-
-# Example
+### Example
 ```bash
 python N5_CLI.py -n 5 -m 0 -oh
 ```
@@ -30,13 +32,18 @@ python N5_CLI.py -n 5 -m 0 -oh
 python N5_CLI.py --number 5 --mode 0 --only-hiragana
 ```
 
-## Export
+### Export
 ```bash
 python N5_CLI.py -n 10 -m 1 -e
 ```
 ```bash
 python N5_CLI.py -n 10 --mode 1 --export
 ```
+
+# Save Location
+`[./N5-Quizzler]/exports/html`  
+Results are saved in unique `htmlexport_[file_id].html` files  
+To see the answers, find your document id and its `htmlexport_[file_id]_AnswerKey.html`
 
 # Troubleshooting
 ## CLI [?]/[X]/invisible characters
