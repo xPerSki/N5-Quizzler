@@ -1,5 +1,5 @@
 from flask import Flask, render_template, url_for, redirect, request, jsonify
-from wtforms import StringField, PasswordField, EmailField, SubmitField
+from wtforms import StringField, PasswordField, EmailField, SubmitField, SelectField, RadioField
 from wtforms.validators import DataRequired, Length, Email
 from sqlalchemy.orm import DeclarativeBase, mapped_column, Mapped
 from sqlalchemy import Integer, Float, String
@@ -63,7 +63,7 @@ def flashcards(mode):
     return render_template('flashcards.html', data=data)
 
 
-@app.route('/get_random_question/<string:mode>')
+@app.route("/get_random_question/<string:mode>")
 def get_random_question(mode):
     if mode == "hiragana":
         data = hook.read_vocab_file(only_hiragana=True)
@@ -72,6 +72,44 @@ def get_random_question(mode):
 
     question = random.choice(data)
     return jsonify(question)
+
+
+NUMBER_OF_QUESTIONS = [i for i in range(1, 100+1)]
+MODE = ["0. Kana -> English", "1. English -> Kana", "2. Kanji -> Kana", "3. Kanji -> English"]
+KANA = ["Only Hiragana", "Hiragana & Katakana"]
+THEME = ["Light Theme", "Dark Theme"]
+
+
+class QuizForm(FlaskForm):
+    number_of_questions = SelectField("Number of questions", validators=[DataRequired()], choices=NUMBER_OF_QUESTIONS)
+    mode = SelectField("Mode", validators=[DataRequired()], choices=MODE)
+    kana = RadioField("Kana", validators=[DataRequired()], choices=KANA)
+    theme = RadioField("Theme", validators=[DataRequired()], choices=THEME)
+    submit = SubmitField("Create Quiz")
+
+
+@app.route("/quiz", methods=["POST", "GET"])
+def quiz():
+    form = QuizForm()
+
+    if form.validate_on_submit():
+        n = int(form.number_of_questions.data)
+        mode = MODE.index(form.mode.data)
+        omit_empty = True if form.mode.data in ["2. Kanji -> Kana", "3. Kanji -> English"] else False
+        only_hiragana = True if form.kana.data == "Only Hiragana" else False
+        darkmode = True if form.theme.data == "Dark Theme" else False
+
+        v_sets = hook.generate_vocab_sets(n, omit_empty, only_hiragana)
+        q_sets = hook.generate_question_sets(vocab_sets=v_sets, mode=mode)
+
+        title, questions = q_sets[0], q_sets[1]
+        hook.generate_html_questions_and_answers(header=title.split('\n')[1], questions=questions, dark_mode=darkmode, mode=mode)
+        return redirect(url_for('hub'))
+
+    form.number_of_questions.data = "10"
+    form.kana.data = "Only Hiragana"
+    form.theme.data = "Light Theme"
+    return render_template('quiz.html', form=form)
 
 
 if __name__ == "__main__":

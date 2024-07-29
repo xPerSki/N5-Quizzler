@@ -1,22 +1,23 @@
 import random
 import export_html
+from app import Word, app
 
 
 def read_vocab_file(omit_empty: bool = False, only_hiragana: bool = False) -> list:
-    with open('N5_vocab.txt', 'r', encoding='utf-8') as file:
-        next(file)  # We omit the header line
-        data: list = []
-        for line in file.readlines():
-            split_vocab: list = line.rstrip().split(sep='\t', maxsplit=2)
-            if omit_empty:
-                if split_vocab[0] == '':
-                    continue
+    with app.app_context():
+        all_words = Word.query.all()
 
-            if only_hiragana:
-                if not check_only_hiragana(split_vocab[1]):
-                    continue
+    data = []
+    for word in all_words:
+        if omit_empty:
+            if word.kanji == '':
+                continue
 
-            data.append((split_vocab[0], split_vocab[1], split_vocab[2]))
+        if only_hiragana:
+            if not check_only_hiragana(word.kana):
+                continue
+
+        data.append((word.kanji, word.kana, word.english))
 
     return data
 
@@ -79,40 +80,34 @@ def cli_display_questions(title, questions: list) -> None:
 
 
 def generate_answers(questions: list, mode: int, q_slice: bool = False) -> dict:
+    # Delete the 1), 2), etc.
     if q_slice:
-        for i in range(len(questions)):
-            # Delete the 1), 2), etc.
-            questions[i] = questions[i].split(' ', 1)[1]
+        questions = [q.split(' ', 1)[1] for q in questions]
 
     data: list = read_vocab_file()
-    sliced_data: list = []
-    search_idx: int = -1
-    answer_idx: int = -1
-    answers: dict = {}
-    for q in questions:
-        answers[q] = ''
-        for data_answer in data:
-            if q in data_answer:
-                sliced_data.append(data_answer)
-    del data, data_answer, i
+    answers: dict = {q: '' for q in questions}
 
-    # (0, 1, 2) -> (Kanji, Kana, English)
-    if mode == 0:
-        search_idx = 1  # We search for Kana
-        answer_idx = 2  # We search for English Translation
-    elif mode == 1:
-        search_idx = 2
-        answer_idx = 1
-    elif mode == 2:
-        search_idx = 0
-        answer_idx = 1
-    elif mode == 3:
-        search_idx = 0
-        answer_idx = 2
+    # mode: (0, 1, 2) -> mode: (Kanji, Kana, English)
+    mode_search = {
+        0: (1, 2),
+        1: (2, 1),
+        2: (0, 1),
+        3: (0, 2)
+    }
+    search_idx, answer_idx = mode_search[mode]
 
+    answer_dict = {}
+    for entry in data:
+        key = entry[search_idx]
+        value = entry[answer_idx]
+        if key in answer_dict:
+            answer_dict[key] += ', ' + value
+        else:
+            answer_dict[key] = value
+
+    # Match questions with their answers
     for question in questions:
-        for data_answer in sliced_data:
-            if question == data_answer[search_idx]:
-                answers[question] += data_answer[answer_idx] + ', '
+        if question in answer_dict:
+            answers[question] = answer_dict[question]
 
     return answers

@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% from 'bootstrap5/form.html' import render_form %}
+{% block title %} N5 Quizzler {% endblock %}
+
+{% block content %}
+<header>
+    <h1 class="silkscreen-bold text-center n5">N5 Quizzler</h1>
+</header>
+<main>
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-container serif-jp">
+                    <form method="POST" action="{{ url_for('quiz') }}">
+                        {{ form.hidden_tag() }}
+
+                        <div class="mb-3">
+                            <label for="number_of_questions" class="form-label">{{ form.number_of_questions.label }}</label>
+                            {{ form.number_of_questions(class="form-control") }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="mode" class="form-label">{{ form.mode.label }}</label>
+                            {{ form.mode(class="form-control") }}
+                        </div>
+
+                        <fieldset class="mb-3">
+                            <legend class="form-label">{{ form.kana.label }}</legend>
+                            {% for subfield in form.kana %}
+                                <div class="form-check">
+                                    {{ subfield(class="form-check-input") }}
+                                    <label class="form-check-label" for="{{ subfield.id }}">{{ subfield.label }}</label>
+                                </div>
+                            {% endfor %}
+                        </fieldset>
+
+                        <fieldset class="mb-3">
+                            <legend class="form-label">{{ form.theme.label }}</legend>
+                            {% for subfield in form.theme %}
+                                <div class="form-check">
+                                    {{ subfield(class="form-check-input") }}
+                                    <label class="form-check-label" for="{{ subfield.id }}">{{ subfield.label }}</label>
+                                </div>
+                            {% endfor %}
+                        </fieldset>
+
+                        <button type="submit" class="btn btn-submit">{{ form.submit.label }}</button>
+                    </form>
+                </div>
+                <p class="serif-jp text-center mt-2" style="font-size: 0.7em;">Quiz will be automatically saved in 'exports/html/'</p>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

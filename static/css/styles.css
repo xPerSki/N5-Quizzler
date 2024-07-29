@@ -313,3 +313,44 @@ main h1, h2, h3, h4, h5, h6, p {
     outline: none;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
+
+.form-container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-container .form-control, .form-container .form-check-input {
+    border-radius: 5px;
+}
+
+.form-container .form-label {
+    font-weight: bold;
+}
+
+.form-container .btn-submit {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #0B2027;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form-container .btn-submit:hover {
+    background-color: #EF065B;
+}
+
+.form-container .form-check {
+    margin-bottom: 15px;
+}
+
+.form-container .form-check-label {
+    margin-left: 5px;
+}
