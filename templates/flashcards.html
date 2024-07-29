@@ -3,7 +3,7 @@
 {% block title %} N5 Quizzler {% endblock %}
 {% block content %}
 <header>
-    <h1 class="silkscreen-bold text-center n5">N5 Quizzler</h1>
+    <a href="{{ url_for('home') }}"><h1 class="text-center silkscreen-bold n5">N5 Quizzler</h1></a>
 </header>
 <main>
     {% if fs == "setup" %}

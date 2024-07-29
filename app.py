@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, redirect, request, jsonify
+from flask import Flask, render_template, url_for, redirect, request, jsonify, flash
 from wtforms import StringField, PasswordField, EmailField, SubmitField, SelectField, RadioField
 from wtforms.validators import DataRequired, Length, Email
 from sqlalchemy.orm import DeclarativeBase, mapped_column, Mapped
@@ -6,13 +6,12 @@ from sqlalchemy import Integer, Float, String
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap5
 from flask_wtf import FlaskForm
-from flask_wtf.csrf import CSRFProtect
 import hook
 import random
 
 
 class SimpleAnswerForm(FlaskForm):
-    answer = StringField("Answer", validators=[DataRequired()])
+    answer = StringField("Answer")
     submit = SubmitField("Check")
 
 
@@ -25,8 +24,6 @@ app.secret_key = "xxxxxxxxxx"
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///N5_vocab.db"
 db = SQLAlchemy(model_class=Base)
 db.init_app(app)
-csrf = CSRFProtect(app)
-csrf.init_app(app)
 bootstrap = Bootstrap5(app)
 
 
@@ -130,6 +127,25 @@ def quiz():
     form.kana.data = "Only Hiragana"
     form.theme.data = "Light Theme"
     return render_template('quiz.html', form=form)
+
+
+@app.route("/practice", methods=["POST", "GET"])
+def practice():
+    form = SimpleAnswerForm()
+    if request.method == 'POST' and form.validate_on_submit():
+        submitted_answer = form.answer.data
+        correct_answer = request.form.get('correct_answer')
+        if submitted_answer.strip().lower() in correct_answer.lower().replace(',', '').split():
+            flash('Correct!', 'success')
+        else:
+            flash(f'Incorrect. The correct answer is {correct_answer}.', 'danger')
+        return redirect(url_for('practice'))
+
+    word = random.choice(hook.read_vocab_file())
+    idx = (1, 2) if random.randint(0, 1) == 0 else (2, 1)
+    question, answer = word[idx[0]], word[idx[1]]
+
+    return render_template('practice.html', form=form, question=question, answer=answer)
 
 
 if __name__ == "__main__":
