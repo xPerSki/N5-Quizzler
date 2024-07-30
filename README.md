@@ -12,12 +12,12 @@ Learn with flashcards, quizzes, and practice with automated exercises!
 - To close the server, simply stop `app.py`
 
 ## Features
-![Features](https://github.com/user-attachments/assets/df3bbd7f-c1d8-434e-a843-fbcbe3c52fc7)
+![Features](https://github.com/user-attachments/assets/abbb0fe5-ffd3-4871-9557-2cb7fc44d432)
 
 ---
 
 ### Flashcards
-![Flashcards](https://github.com/user-attachments/assets/479d81ac-a357-4c61-b95b-7f19ec788f4e)
+![Flashcards](https://github.com/user-attachments/assets/679bd062-afbb-4fb2-8234-31c2937c2914)
 
 - Card will reveal the translation after you click it
 - If the word can be written with Kanji, it will be displayed below
@@ -25,7 +25,7 @@ Learn with flashcards, quizzes, and practice with automated exercises!
 ---
 
 ### Quizzes / Short Tests
-![Quizzes](https://github.com/user-attachments/assets/aafdac52-972e-467b-81fb-dbe000aca8de)
+![Quizzes](https://github.com/user-attachments/assets/f1ed53b3-e741-4fa9-85b8-778798a47430)
 
 - Quiz will be generated based on your selected options
 - After clicking `Create`, it will save your quiz (& the answer key) in the `exports/html` folder
@@ -33,10 +33,10 @@ Learn with flashcards, quizzes, and practice with automated exercises!
 ---
 
 ### Practice
-![Practice](https://github.com/user-attachments/assets/2a875f94-8dc3-443a-8973-91e271d4d932)
+![Practice](https://github.com/user-attachments/assets/fc386b03-1cba-4bd8-8764-a59e72a7fc77)
 
 - Translate the word and automatically get feedback if you were correct
-- *(Recommended)* Install a Japanese keyboard on your PC, as of version `v2.0.0` there isn't any other option to type in Japanese
+- *(Recommended)* Install a Japanese keyboard on your PC, as of version `v2.0.1` there isn't any other option to type in Japanese
 
 ---
 
