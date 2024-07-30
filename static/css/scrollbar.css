@@ -15,7 +15,7 @@
 	position: fixed;
 	top: 0;
 	right: 0;
-	width: 10px;
+	width: 7px;
 	background: -webkit-gradient(linear, left bottom, left top, from(#008aff), to(#00ffe7));
 	background: linear-gradient(to top, #008aff, #00ffe7);
 	-webkit-animation: animate 13s linear infinite;
