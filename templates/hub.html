@@ -1,36 +1,40 @@
 {% extends 'base.html' %}
 
 {% block title %} N5 Quizzler {% endblock %}
+{% block bg %} bghub {% endblock %}
 {% block content %}
-<header>
-    <a href="{{ url_for('home') }}"><h1 class="text-center silkscreen-bold n5">N5 Quizzler</h1></a>
-</header>
-<main>
-    <h1 class="serif-jp text-center">こんにちは！</h1>
-    <div class="container py-5">
-        <div class="row justify-content-center">
-            <div class="col-md-4 text-center mb-4">
-                <a href="{{ url_for('flashcards_choosing') }}" class="game-button" id="flashcards-button">
-                    <img src="/static/img/japanese-lantern.jpg" alt="Flashcards">
-                    <div class="button-overlay">暗記カード</div>
-                </a>
-                <p class="serif-jp text-center" style="margin-top: 15px;">Flashcards</p>
-            </div>
-            <div class="col-md-4 text-center mb-4">
-                <a href="{{ url_for('quiz') }}" class="game-button" id="quizzes-button">
-                    <img src="/static/img/senbon-torii.jpg" alt="Quizzes">
-                    <div class="button-overlay">クイズ</div>
-                </a>
-                <p class="serif-jp text-center" style="margin-top: 15px;">Quiz</p>
-            </div>
-            <div class="col-md-4 text-center mb-4">
-                <a href="{{ url_for('practice') }}" class="game-button" id="practice-button">
-                    <img src="/static/img/lanterns.jpg" alt="Practice">
-                    <div class="button-overlay">練習</div>
-                </a>
-                <p class="serif-jp text-center" style="margin-top: 15px;">Practice</p>
+<div class="bghub">
+    <header>
+        <a href="{{ url_for('home') }}"><h1 class="text-center silkscreen-bold n5">N5 Quizzler</h1></a>
+    </header>
+
+    <main>
+        <h1 class="serif-jp text-center">こんにちは！</h1>
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-md-4 text-center mb-4">
+                    <a href="{{ url_for('flashcards_choosing') }}" class="game-button" id="flashcards-button">
+                        <img src="/static/img/japanese-lantern.jpg" alt="Flashcards">
+                        <div class="button-overlay">暗記カード</div>
+                    </a>
+                    <p class="serif-jp text-center" style="margin-top: 15px;">Flashcards</p>
+                </div>
+                <div class="col-md-4 text-center mb-4">
+                    <a href="{{ url_for('quiz') }}" class="game-button" id="quizzes-button">
+                        <img src="/static/img/senbon-torii.jpg" alt="Quizzes">
+                        <div class="button-overlay">クイズ</div>
+                    </a>
+                    <p class="serif-jp text-center" style="margin-top: 15px;">Quiz</p>
+                </div>
+                <div class="col-md-4 text-center mb-4">
+                    <a href="{{ url_for('practice') }}" class="game-button" id="practice-button">
+                        <img src="/static/img/lanterns.jpg" alt="Practice">
+                        <div class="button-overlay">練習</div>
+                    </a>
+                    <p class="serif-jp text-center" style="margin-top: 15px;">Practice</p>
+                </div>
             </div>
         </div>
-    </div>
-</main>
+    </main>
+</div>
 {% endblock %}
