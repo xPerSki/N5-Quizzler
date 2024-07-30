@@ -354,3 +354,24 @@ main h1, h2, h3, h4, h5, h6, p {
 .form-container .form-check-label {
     margin-left: 5px;
 }
+
+.bghub {
+    background-image: url('/static/img/redbg.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
+}
+
+.bgmode {
+    background-image: url('/static/img/modebg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
+    height: 110vh;
+}
+
+.bghome {
+    background-image: url('/static/img/space.jpg');
+    background-size: contain;
+    background-repeat: repeat;
+}
