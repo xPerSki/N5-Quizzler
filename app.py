@@ -8,6 +8,7 @@ from flask_bootstrap import Bootstrap5
 from flask_wtf import FlaskForm
 import hook
 import random
+import string
 
 
 class SimpleAnswerForm(FlaskForm):
@@ -135,15 +136,23 @@ def practice():
     if request.method == 'POST' and form.validate_on_submit():
         submitted_answer = form.answer.data
         correct_answer = request.form.get('correct_answer')
-        if submitted_answer.strip().lower() in correct_answer.lower().replace(',', '').split():
+        if submitted_answer.strip().lower() in correct_answer.lower().replace(',', '').replace('/', '').split():
             flash('Correct!', 'success')
         else:
-            flash(f'Incorrect. The correct answer is {correct_answer}.', 'danger')
+            flash(f'Incorrect. The correct answer is: {correct_answer}.', 'danger')
         return redirect(url_for('practice'))
 
     word = random.choice(hook.read_vocab_file())
-    idx = (1, 2) if random.randint(0, 1) == 0 else (2, 1)
-    question, answer = word[idx[0]], word[idx[1]]
+    if random.randint(0, 1) == 0:
+        # Q: JP, A: ENG
+        question, answer = word[1], word[2]
+        if word[0]:
+            question = f"{word[1]} ({word[0]})"
+    else:
+        # Q: ENG, A: JP
+        question, answer = word[2], f"{word[1]}"
+        if word[0]:
+            answer = f"{word[1]} ({word[0]})"
 
     return render_template('practice.html', form=form, question=question, answer=answer)
 
