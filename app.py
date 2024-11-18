@@ -6,9 +6,7 @@ from sqlalchemy import Integer, Float, String
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap5
 from flask_wtf import FlaskForm
-import hook
 import random
-import string
 
 
 class SimpleAnswerForm(FlaskForm):
@@ -56,6 +54,7 @@ def flashcards_choosing():
 
 @app.route("/flashcards/<string:mode>")
 def flashcards(mode):
+    import hook
     if mode == "hiragana":
         data = hook.read_vocab_file(only_hiragana=True)
     else:
@@ -64,25 +63,9 @@ def flashcards(mode):
     return render_template('flashcards.html', data=data)
 
 
-# @app.route("/flashcards/save", methods=["POST"])
-# def save():
-#     data = request.get_json()
-#     if data:
-#         front_middle = data.get('front-middle')
-#         front_bottom = data.get('front-bottom')
-#         back_middle = data.get('back-middle')
-#
-#         query = db.select(Word).where(Word.kanji == front_bottom and Word.kana == front_middle and Word.english == back_middle)
-#         result = db.session.execute(query)
-#         result.scalar().saved = 'Y'
-#         db.session.commit()
-#
-#         return jsonify(success=True), 200
-#     return jsonify(success=False), 400
-
-
 @app.route("/get_random_question/<string:mode>")
 def get_random_question(mode):
+    import hook
     if mode == "hiragana":
         data = hook.read_vocab_file(only_hiragana=True)
     else:
@@ -108,6 +91,7 @@ class QuizForm(FlaskForm):
 
 @app.route("/quiz", methods=["POST", "GET"])
 def quiz():
+    import hook
     form = QuizForm()
 
     if form.validate_on_submit():
@@ -132,6 +116,7 @@ def quiz():
 
 @app.route("/practice", methods=["POST", "GET"])
 def practice():
+    import hook
     form = SimpleAnswerForm()
     if request.method == 'POST' and form.validate_on_submit():
         submitted_answer = form.answer.data
@@ -158,4 +143,4 @@ def practice():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
