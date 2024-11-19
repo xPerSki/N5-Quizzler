@@ -7,6 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap5
 from flask_wtf import FlaskForm
 import random
+import os
 
 
 class SimpleAnswerForm(FlaskForm):
@@ -20,7 +21,7 @@ class Base(DeclarativeBase):
 
 app = Flask(__name__)
 app.secret_key = "xxxxxxxxxx"
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///N5_vocab.db"
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DB_URI", "sqlite:///N5_vocab.db")
 db = SQLAlchemy(model_class=Base)
 db.init_app(app)
 bootstrap = Bootstrap5(app)
