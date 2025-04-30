@@ -27,8 +27,8 @@ def main():
     questions = q_sets[1]
 
     if args.export:
-        hook.generate_html_questions_and_answers(header=title.split('\n')[1], questions=questions,
-                                                 dark_mode=args.dark, mode=args.mode)
+        hook.generate_pdf_questions_and_answers(header=title.split('\n')[1], questions=questions,
+                                                dark_mode=args.dark, mode=args.mode)
     else:
         hook.cli_display_questions(title, questions)
         input('\nPress ENTER to show the answers')

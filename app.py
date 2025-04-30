@@ -106,7 +106,7 @@ def quiz():
         q_sets = hook.generate_question_sets(vocab_sets=v_sets, mode=mode)
 
         title, questions = q_sets[0], q_sets[1]
-        hook.generate_html_questions_and_answers(header=title.split('\n')[1], questions=questions, dark_mode=darkmode, mode=mode)
+        hook.generate_pdf_questions_and_answers(header=title.split('\n')[1], questions=questions, dark_mode=darkmode, mode=mode)
         return redirect(url_for('hub'))
 
     form.number_of_questions.data = "10"

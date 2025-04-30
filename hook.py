@@ -1,5 +1,5 @@
 import random
-import export_html
+import export
 from app import Word, app
 
 
@@ -67,10 +67,10 @@ def check_only_hiragana(word) -> bool:
     return True
 
 
-def generate_html_questions_and_answers(header: str, questions: list, dark_mode: bool = False, mode: int = -1) -> None:
-    html_data = export_html.Export(header, questions, dark_mode, mode)
-    html_data.create_html()
-    html_data.create_answers()
+def generate_pdf_questions_and_answers(header: str, questions: list, dark_mode: bool = False, mode: int = -1) -> None:
+    data = export.Export(header, questions, dark_mode, mode)
+    data.create_questions_pdf()
+    data.create_answerkey_pdf()
 
 
 def cli_display_questions(title, questions: list) -> None:
