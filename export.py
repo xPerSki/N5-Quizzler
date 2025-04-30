@@ -83,9 +83,3 @@ class Export:
             y -= cm
 
         c.save()
-
-
-if __name__ == "__main__":
-    e = Export("N5", ['1) ななつ', '2) ちゃわん', '3) わたす', '4) なん/なに', '5) ひとつき', '6) あかい'], False, 0)
-    e.create_questions_pdf()
-    e.create_answerkey_pdf()
