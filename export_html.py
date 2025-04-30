@@ -1,7 +1,19 @@
 import random
 from string import ascii_letters
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.units import cm
+from reportlab.lib.colors import Color
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
 import hook
 import os
+
+HEADER_FONT_SIZE = 24
+CONTENT_FONT_SIZE = 14
+BACKGROUND = "static/img/pdf-rose-small.png"
+FONT_NAME = "NotoSansJP"
+FONT_PATH = "fonts/NotoSerifJP.ttf"
 
 
 class Export:
@@ -10,52 +22,70 @@ class Export:
         self.questions = questions
         self.dark_mode = dark_mode
         self.mode = mode
-        self.html_path = fr'exports/html'
+        self.export_path = fr'export/'
         self.unique_id = random.choices(ascii_letters, k=random.randint(4, 7))
         self.filename = "".join(self.unique_id)
-        self.HTML_LINES = [
-            '<!DOCTYPE html>\n',
-            '<head>\n',
-            '<meta charset="UTF-8">\n',
-            '<meta name="viewport" content="width=device-width, initial-scale=1.0">\n',
-            '<title>N5 Quizzler</title>\n',
-            '<link rel="stylesheet" href="styles.css">\n',
-            '</head>\n',
-            '<body>\n',
-            '<div class="quiz-container">\n',
-            f'<h1>{self.header}</h1>\n',
-        ]
 
-    def create_html(self):
-        try:
-            os.makedirs(self.html_path)
-        except FileExistsError:
-            pass
+    def create_questions_pdf(self):
+        c = canvas.Canvas("example.pdf", pagesize=A4)
+        width, height = A4
+        y = height - 3 * cm
 
-        self._create_css()
-        with open(fr'{self.html_path}/htmlexport_{self.filename}.html', 'w', encoding='utf-8') as html:
-            html.writelines(self.HTML_LINES)
-            for q in self.questions:
-                html.write(f'<div class="question">{q} = </div>\n')
-            html.write('</div>\n</body>\n</html>')
+        pdfmetrics.registerFont(TTFont(FONT_NAME, FONT_PATH))
 
-    def create_answers(self):
-        with open(fr'{self.html_path}/htmlexport_{self.filename}_AnswerKey.html', 'w', encoding='utf-8') as html:
-            html.writelines(self.HTML_LINES)
+        c.drawImage(BACKGROUND, 0, 0, width=width, height=height)
+        c.setFillColor(Color(0, 0, 0))
+        c.setFont(FONT_NAME, HEADER_FONT_SIZE)
+        c.drawCentredString(width/2, height - 2 * cm, self.header)
 
-            answers = hook.generate_answers(self.questions, self.mode, q_slice=True)
-            for i, (k, v) in enumerate(answers.items()):
-                html.write(f'<div class="question">{i+1}) {k} = {v}</div>\n')
-            html.write('</div>\n</body>\n</html>')
+        y -= 2 * cm
 
-    def _create_css(self):
-        colors = ('#212529', '#fff') if self.dark_mode else ('#fff', '#212529')
-        with open(fr'{self.html_path}/styles.css', 'w') as css:
-            lines = [
-                '@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Noto+Serif+JP:wght@200..900&display=swap");\n',
-                f'* {{background-color: {colors[0]}; color: {colors[1]}; font-family: "Noto Serif JP", serif; font-weight: 400;}}\n',
-                'h1 {font-size: 50px; text-align: center; margin-bottom: 30px;}\n',
-                '.quiz-container {max-width: 800px; margin: auto;}\n',
-                '.question {font-size: 24px; margin-top: 30px;}\n',
-            ]
-            css.writelines(lines)
+        c.setFont(FONT_NAME, CONTENT_FONT_SIZE)
+        for i, question in enumerate(self.questions, 1):
+            if y < cm:
+                c.showPage()
+                c.drawImage(BACKGROUND, 0, 0, width=width, height=height)
+                c.setFillColor(Color(0, 0, 0))
+                c.setFont(FONT_NAME, CONTENT_FONT_SIZE)
+                y = height - 2 * cm
+
+            c.drawString(2 * cm, y, f"{question}")
+            y -= cm
+
+        c.save()
+
+    def create_answerkey_pdf(self):
+        answers = hook.generate_answers(self.questions, self.mode, q_slice=True)
+
+        c = canvas.Canvas("example_answer-key.pdf", pagesize=A4)
+        width, height = A4
+        y = height - 3 * cm
+
+        pdfmetrics.registerFont(TTFont(FONT_NAME, FONT_PATH))
+
+        c.drawImage(BACKGROUND, 0, 0, width=width, height=height)
+        c.setFillColor(Color(0, 0, 0))
+        c.setFont(FONT_NAME, HEADER_FONT_SIZE)
+        c.drawCentredString(width/2, height - 2 * cm, self.header + " - Answers")
+
+        y -= 2 * cm
+
+        c.setFont(FONT_NAME, CONTENT_FONT_SIZE)
+        for i, (question, answer) in enumerate(answers.items(), 1):
+            if y < cm:
+                c.showPage()
+                c.drawImage(BACKGROUND, 0, 0, width=width, height=height)
+                c.setFillColor(Color(0, 0, 0))
+                c.setFont(FONT_NAME, CONTENT_FONT_SIZE)
+                y = height - 2 * cm
+
+            c.drawString(2 * cm, y, f"{i}) {question} -> {answer}")
+            y -= cm
+
+        c.save()
+
+
+if __name__ == "__main__":
+    e = Export("N5", ['1) ななつ', '2) ちゃわん', '3) わたす', '4) なん/なに', '5) ひとつき', '6) あかい'], False, 0)
+    e.create_questions_pdf()
+    e.create_answerkey_pdf()
