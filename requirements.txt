@@ -5,5 +5,4 @@ WTForms~=3.0.1
 Flask_WTF~=1.2.1
 Bootstrap_Flask~=2.2.0
 Werkzeug~=3.0.0
-gunicorn==21.2.0
-reportlab
+reportlab~=4.4.0
