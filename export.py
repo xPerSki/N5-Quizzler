@@ -6,14 +6,9 @@ from reportlab.lib.units import cm
 from reportlab.lib.colors import Color
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
+from settings import *
 import hook
 import os
-
-HEADER_FONT_SIZE = 24
-CONTENT_FONT_SIZE = 14
-BACKGROUND = "static/img/pdf-rose-small.png"
-FONT_NAME = "NotoSansJP"
-FONT_PATH = "fonts/NotoSerifJP.ttf"
 
 
 class Export:
@@ -22,12 +17,14 @@ class Export:
         self.questions = questions
         self.dark_mode = dark_mode
         self.mode = mode
-        self.export_path = fr'export/'
-        self.unique_id = random.choices(ascii_letters, k=random.randint(4, 7))
-        self.filename = "".join(self.unique_id)
+
+        os.makedirs(EXPORT_PATH, exist_ok=True)
+
+        _unique_id = random.choices(ascii_letters, k=random.randint(4, 7))
+        self.filename = "".join(_unique_id)
 
     def create_questions_pdf(self):
-        c = canvas.Canvas("example.pdf", pagesize=A4)
+        c = canvas.Canvas(f"{EXPORT_PATH}Quiz-{self.filename}.pdf", pagesize=A4)
         width, height = A4
         y = height - 3 * cm
 
@@ -53,11 +50,12 @@ class Export:
             y -= cm
 
         c.save()
+        return self.filename
 
     def create_answerkey_pdf(self):
         answers = hook.generate_answers(self.questions, self.mode, q_slice=True)
 
-        c = canvas.Canvas("example_answer-key.pdf", pagesize=A4)
+        c = canvas.Canvas(f"{EXPORT_PATH}Quiz-{self.filename}-answers.pdf", pagesize=A4)
         width, height = A4
         y = height - 3 * cm
 
@@ -83,3 +81,4 @@ class Export:
             y -= cm
 
         c.save()
+        return self.filename

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, redirect, request, jsonify, flash
+from flask import Flask, render_template, url_for, redirect, request, jsonify, flash, send_file, after_this_request
 from wtforms import StringField, PasswordField, EmailField, SubmitField, SelectField, RadioField
 from wtforms.validators import DataRequired, Length, Email
 from sqlalchemy.orm import DeclarativeBase, mapped_column, Mapped
@@ -6,7 +6,10 @@ from sqlalchemy import Integer, Float, String
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap5
 from flask_wtf import FlaskForm
+from settings import EXPORT_PATH, LOCAL_DEPLOY
+import zipfile
 import random
+import io
 import os
 
 
@@ -106,7 +109,32 @@ def quiz():
         q_sets = hook.generate_question_sets(vocab_sets=v_sets, mode=mode)
 
         title, questions = q_sets[0], q_sets[1]
-        hook.generate_pdf_questions_and_answers(header=title.split('\n')[1], questions=questions, dark_mode=darkmode, mode=mode)
+        quiz_name = hook.generate_pdf_questions_and_answers(
+            header=title.split('\n')[1],
+            questions=questions,
+            dark_mode=darkmode,
+            mode=mode
+        )
+
+        if not LOCAL_DEPLOY:
+            app.logger.info(f"Generating Quiz-{quiz_name}.zip")
+            zip_buffer = io.BytesIO()
+            with zipfile.ZipFile(zip_buffer, 'w') as zipf:
+                zipf.write(f"{EXPORT_PATH}Quiz-{quiz_name}.pdf", arcname=f"Quiz-{quiz_name}.pdf")
+                zipf.write(f"{EXPORT_PATH}Quiz-{quiz_name}-answers.pdf", arcname=f"Quiz-{quiz_name}-answers.pdf")
+            zip_buffer.seek(0)
+
+            @after_this_request
+            def cleanup(response):
+                try:
+                    os.remove(f"{EXPORT_PATH}Quiz-{quiz_name}.pdf")
+                    os.remove(f"{EXPORT_PATH}Quiz-{quiz_name}-answers.pdf")
+                except Exception as e:
+                    app.logger.error(f"Error during cleanup: {e}")
+                return response
+
+            return send_file(zip_buffer, as_attachment=True, download_name=f"Quiz-{quiz_name}.zip", mimetype="application/zip")
+
         return redirect(url_for('hub'))
 
     form.number_of_questions.data = "10"
@@ -145,4 +173,4 @@ def practice():
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port, debug=False)
+    app.run(host="localhost", port=port, debug=True)

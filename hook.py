@@ -67,10 +67,11 @@ def check_only_hiragana(word) -> bool:
     return True
 
 
-def generate_pdf_questions_and_answers(header: str, questions: list, dark_mode: bool = False, mode: int = -1) -> None:
+def generate_pdf_questions_and_answers(header: str, questions: list, dark_mode: bool = False, mode: int = -1) -> str:
     data = export.Export(header, questions, dark_mode, mode)
-    data.create_questions_pdf()
+    quiz_name = data.create_questions_pdf()
     data.create_answerkey_pdf()
+    return quiz_name
 
 
 def cli_display_questions(title, questions: list) -> None:
