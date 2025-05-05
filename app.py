@@ -7,6 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap5
 from flask_wtf import FlaskForm
 from settings import EXPORT_PATH, LOCAL_DEPLOY
+from os import getenv
 import zipfile
 import random
 import io
@@ -173,4 +174,4 @@ def practice():
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
-    app.run(host="localhost", port=port, debug=True)
+    app.run(host="localhost", port=port, debug=getenv("FLASK_DEBUG", 0) == 1)

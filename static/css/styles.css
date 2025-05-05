@@ -7,8 +7,12 @@ Emerald #06D6A0
 Process Cyan #01BAEF
 */
 
-html {
+html, body {
+    margin: 0;
+    padding: 0;
     scroll-behavior: smooth;
+    min-height: 100vh;
+    overflow-x: hidden;
 }
 
 .hero {
@@ -24,6 +28,7 @@ html {
     color: #EBEBFF;
     text-shadow: 0 1px 30px rgba(0, 0, 0, 0.7);
     z-index: 1;
+    overflow: visible;
 }
 
 .hero-content {
@@ -360,18 +365,23 @@ main h1, h2, h3, h4, h5, h6, p {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: top;
+    height: 100vh;
+    overflow: auto;
 }
 
 .bgmode {
     background-image: url('/static/img/modebg.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: top;
-    height: 110vh;
+    background-position: center;
+    height: 100vh;
+    overflow: auto;
 }
 
 .bghome {
     background-image: url('/static/img/space.jpg');
     background-size: contain;
     background-repeat: repeat;
+    height: 100vh;
+    overflow: auto;
 }

@@ -3,13 +3,17 @@
 
 With the use of N5 Quizzler, you can learn the language in a fun and simple way  
 Learn with flashcards, quizzes, and practice with automated exercises!
-
+---
 ## V2
 
 ### How to Run
 - Launch server by running `app.py`
 - Open server at `127.0.0.1:5000`
 - To close the server, simply stop `app.py`
+
+### Environment Variables
+`FLASK_DEBUG`: Flask server debug mode   
+`LOCAL_DEPLOY`: Allows saving quizzes automatically in current folder
 
 ## Features
 ![Features](https://github.com/user-attachments/assets/abbb0fe5-ffd3-4871-9557-2cb7fc44d432)
@@ -28,7 +32,7 @@ Learn with flashcards, quizzes, and practice with automated exercises!
 ![Quizzes](https://github.com/user-attachments/assets/f1ed53b3-e741-4fa9-85b8-778798a47430)
 
 - Quiz will be generated based on your selected options
-- After clicking `Create`, it will save your quiz (& the answer key) in the `exports/html` folder
+- After clicking `Create`, it will save your quiz & the answer key
 
 ---
 
@@ -36,7 +40,7 @@ Learn with flashcards, quizzes, and practice with automated exercises!
 ![Practice](https://github.com/user-attachments/assets/fc386b03-1cba-4bd8-8764-a59e72a7fc77)
 
 - Translate the word and automatically get feedback if you were correct
-- *(Recommended)* Install a Japanese keyboard on your PC, as of version `v2.0.1` there isn't any other option to type in Japanese
+- *(Recommended)* Install a Japanese keyboard on your PC, as of current version there isn't any other option to type in Japanese
 
 ---
 
@@ -51,7 +55,7 @@ To display the options use `python N5_CLI.py -h` or `python N5_CLI.py --help`
   - 1 - English -> Kana &nbsp;
   - 2 - Kanji -> Kana &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   - 3 - Kanji -> English &nbsp;
-- -e, --export &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Export result in html file
+- -e, --export &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Export results in pdf file
 - -oh, --only-hiragana &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Generate only hiragana words
 - -d, --dark &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Result is customized with black background and white text (dark-mode)
 
@@ -72,9 +76,12 @@ python N5_CLI.py -n 10 --mode 1 --export
 ```
 
 # Save Location
-`[./N5-Quizzler]/exports/html`  
-Results are saved in unique `htmlexport_[file_id].html` files  
-To see the answers, find your document id and its `htmlexport_[file_id]_AnswerKey.html`
+- `[./N5-Quizzler]/export/`  
+
+Results are saved in unique file: `Quiz-[file_id].pdf`  
+To see the answers, find document: `Quiz-[file_id]-answers.pdf`
+
+---
 
 # Troubleshooting
 ## CLI [?]/[X]/invisible characters
